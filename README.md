@@ -10,3 +10,9 @@ c2_Number_to_String_Challenge completed on April 10, 2019 at 5:17 PM.
 c3_File_Challenge completed on April 10, 2019 at 6:26 PM.
 
 Documentations, comments, and references are included within the .py.
+
+Picture:
+
+c2_Number_to_String_Challenge
+
+![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/c2_output.png)
