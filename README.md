@@ -11,7 +11,7 @@ c3_File_Challenge completed on April 10, 2019 at 6:26 PM.
 
 Documentations, comments, and references are included within the .py.
 
-Picture:
+Sample output:
 
 c2_Number_to_String_Challenge
 
