@@ -1,5 +1,5 @@
-# FIS CTPB Code Challenges
-Code challenges for the FIS program at CTPB, Rice U by Khoa Ngo (khoangotran@gmail.com).
+# FIS CTBP Code Challenges
+Code challenges for the FIS program at CTBP, Rice U by Khoa Ngo (khoangotran@gmail.com).
 
 Language: Python 3
 
