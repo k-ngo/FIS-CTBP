@@ -74,7 +74,7 @@ def number_to_rpg_string(*args):
 
     # Divide the provided card number into segments to serve as seeds. The seeds will later determine the loot.
     # If there are not enough numbers to divide into meaningful segments,
-    # the trailing number will be continuously added.
+    # the trailing number will be continuously appended to the list until len is >= 10.
 
     num_list = list(str(numbers))
     while len(num_list) < 10:
