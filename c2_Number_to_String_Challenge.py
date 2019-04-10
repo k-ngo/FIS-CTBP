@@ -1,3 +1,4 @@
+
 from tkinter import *
 from tkinter import ttk
 import random
@@ -57,6 +58,8 @@ item_quality_dict = {
 
 def number_to_rpg_string(*args):
 
+    # Obtain input value.
+
     numbers = loot_box_entry.get()
 
     # Check if there is enough fund to buy loot boxes.
@@ -93,7 +96,8 @@ def number_to_rpg_string(*args):
     first_suffix = first_suffix_list[first_suffix % len(first_suffix_list)]
     second_suffix = second_suffix_list[second_suffix % len(second_suffix_list)]
 
-    # Output stuff as well as add money obtained from selling the loot to total_money.
+    # Output everything we have as well as add money obtained from selling the loot to total_money.
+    # Money obtained from selling the loot is decided purely by the quality + 5.
 
     total_money.set(total_money.get() + quality + 5)
     final_item.set('\nYou have obtained\n\n%s\n%s[%s] %s\n%s\n%s %s %s of %s %s\nValue: $%d\n%s' %('-' * 70, ' ' * 10, item_quality_dict[quality], '☆' * quality, '-' * 70, first_prefix, second_prefix, item_type_dict[item_type], first_suffix, second_suffix, quality + 5, '-' * 70))
@@ -169,7 +173,7 @@ root.mainloop()
 
 # REFERENCES
 # Mostly documents on how to append text from .txt to lists and GUI stuff.
-# Item prefixes and suffixes
+# Item prefixes come from World of Warcraft, and suffixes come from Path of Exile.
 # ----------------------------------------------------------
 #https://pathofexile.gamepedia.com/Rare_Item_Name_Index
 #https://www.w3schools.com/python/python_dictionaries.asp
@@ -182,5 +186,11 @@ root.mainloop()
 #https://stackoverflow.com/questions/19719577/add-tkinters-intvar-to-an-integer
 #https://stackoverflow.com/questions/14786507/how-to-change-the-color-of-certain-words-in-the-tkinter-text-widget
 
+# REMARKS:  At first I wanted to just make an RPG item name generator.
+#           When it comes to naming the buttons I suddenly thought about loot boxes
+#           so I decided to add the money system and made it so buying loot box costs
+#           money, but you can sell the item within the box to gain money back.
+#           I then added the sell_kidneys function as a way to gain money to debug.
+#           Lastly I added the random_card function for quicker debug.
 
 
