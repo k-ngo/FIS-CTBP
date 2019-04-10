@@ -24,7 +24,7 @@
 #       It also allows me to split the first and last names later on if I would like to.
 #       Cons:
 #       I believe execution speed could suffer when there are huge amount of data
-#       as the final part involves comparing each index manually.
+#       as the final part involves comparing every character in each index.
 #
 #       A potential improvement for dealing with large amount of data is:
 #       I noticed there is a single digit at the end of each unique identifier.
