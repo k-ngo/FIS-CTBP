@@ -73,7 +73,7 @@ def number_to_rpg_string(*args):
         return
 
     # Divide the provided card number into segments to serve as seeds. The seeds will later determine the loot.
-    # If there are not enough numbers to divide into meaningful segments,
+    # If there are not enough numbers in the list to divide into meaningful segments,
     # the trailing number will be continuously appended to the list until len is >= 10.
 
     num_list = list(str(numbers))
@@ -88,7 +88,8 @@ def number_to_rpg_string(*args):
     second_suffix = int(''.join(num_list[len(num_list)*3//4:len(num_list)]))
 
     # Now that we have the seeds.
-    # I convert the seeds to something equal to or less than the index of the prefixes and suffixes lists.
+    # I convert the seeds to something equal to or less than the final index of the prefixes and suffixes lists.
+    # This is done using the remainder operator because it will always give a value less than len of the list.
     # Doing so will allow me to obtain suitable indexes for prefixes and suffixes from the seeds.
 
     first_prefix = first_prefix_list[first_prefix % len(first_prefix_list)]
