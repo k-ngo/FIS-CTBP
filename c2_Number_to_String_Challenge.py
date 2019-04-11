@@ -204,6 +204,7 @@ root.mainloop()
 #https://tkdocs.com/tutorial/firstexample.html
 #https://stackoverflow.com/questions/19719577/add-tkinters-intvar-to-an-integer
 #https://stackoverflow.com/questions/14786507/how-to-change-the-color-of-certain-words-in-the-tkinter-text-widget
+#https://stackoverflow.com/questions/918154/relative-paths-in-python
 
 # REMARKS:  At first I wanted to just make an RPG item name generator.
 #           When I started to work on the GUI I suddenly thought about loot boxes
