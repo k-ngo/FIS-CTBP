@@ -1,10 +1,10 @@
 
+#        KHOA NGO
+#   2. NUMBER TO STRING CHALLENGE
+
 from tkinter import *
 from tkinter import ttk
 import random
-
-#        KHOA NGO
-#   2. NUMBER TO STRING CHALLENGE
 
 # Open text files containing prefixes and suffixes, strip unneeded characters, then append them to lists.
 
@@ -28,7 +28,7 @@ with open('.\c2_Names_List\c2_Second_Suffixes.txt', 'r') as f:
     f.close()
 second_suffix_list = [i.strip('\n') for i in second_suffix_list]
 
-# I made the decision to use dict instead of list here for ease of access later.
+# I made the decision to use dict instead of list here for ease of access/edit.
 
 item_type_dict = {
     0: 'Wand',
@@ -68,13 +68,14 @@ def number_to_rpg_string(*args):
     if total_money.get() >= 10:
         total_money.set(total_money.get() - 10)
     else:
-        card_ending.set('Your card ending in %s does not have sufficient fund.' %(''.join(numbers[-4:])))
-        final_item.set('You have obtained\n\n[Disappointment]')
+        final_item.set('\nCongratulations! You have obtained\n\n[Legendary] Disappointment')
+        card_ending.set('Your card ending in %s does not have sufficient fund.\nSell kidney now?' %(''.join(numbers[-4:])))
         return
 
     # Divide the provided card number into segments to serve as seeds. The seeds will later determine the loot.
     # If there are not enough numbers in the list to divide into meaningful segments,
     # the trailing number will be continuously appended to the list until len is >= 10.
+    # No random functions were used to ensure the same credit card will give the same loot.
 
     num_list = list(str(numbers))
     while len(num_list) < 10:
@@ -89,7 +90,7 @@ def number_to_rpg_string(*args):
 
     # Now that we have the seeds.
     # I convert the seeds to something equal to or less than the final index of the prefixes and suffixes lists.
-    # This is done using the remainder operator because it will always give a value less than len of the list.
+    # This is done using the remainder operator because it will always give a value < len(list).
     # Doing so will allow me to obtain suitable indexes for prefixes and suffixes from the seeds.
 
     first_prefix = first_prefix_list[first_prefix % len(first_prefix_list)]
@@ -98,12 +99,25 @@ def number_to_rpg_string(*args):
     second_suffix = second_suffix_list[second_suffix % len(second_suffix_list)]
 
     # Output everything we have as well as add money obtained from selling the loot to total_money.
-    # Money obtained from selling the loot is decided purely by the quality + 5.
+    # Money obtained from selling the loot is decided purely by quality + 5.
 
     total_money.set(total_money.get() + quality + 5)
     profit.set('You have profited $%d from selling the loot. Loot boxes are good!' %(quality + 5 - 10))
-    final_item.set('\nYou have obtained\n\n%s\n%s[%s] %s\n%s\n%s %s %s of %s %s\nAttack: %d | Defense: %d | Value: $%d\n%s' %('-' * 70, ' ' * 10, item_quality_dict[quality], '☆' * quality, '-' * 70, first_prefix, second_prefix, item_type_dict[item_type], first_suffix, second_suffix, first_suffix_list.index(first_suffix) + item_type * quality, second_suffix_list.index(second_suffix) + item_type * quality, quality + 5, '-' * 70))
-    card_ending.set('Your card ending in %s has been charged sucessfully.\nYou have gained $%d from selling the loot. Net profit is $%d.\nTo obtain a new item please use a different card.\nThank you for your purchase.\n' %(''.join(numbers[-4:]), quality + 5, quality + 5 - 10))
+
+    final_item.set(
+        '\nCongratulations! You have obtained\n\n' + '-' * 70 + '\n' + '[' + item_quality_dict[quality] + ']' + ' ☆' * quality + '\n' + '-' * 70 + '\n' +
+        first_prefix + ' ' + second_prefix + ' ' + item_type_dict[item_type] + ' of ' + first_suffix + ' ' + second_suffix + '\n' +
+        'Attack: ' + str(first_suffix_list.index(first_suffix) + item_type * quality) + ' ' +
+        '| Defense: ' + str(second_suffix_list.index(second_suffix) + item_type * quality) + ' ' +
+        '| Value: $' + str(quality + 5) + '\n' + '-' * 70
+    )
+    
+    card_ending.set(
+        'Your card ending in ' + ''.join(numbers[-4:]) + ' has been charged sucessfully.\n' +
+        'You have gained $' + str(quality + 5) + ' from selling the loot.\n' +
+        'To obtain a new item please use a different card.\nThank you for your purchase.\n'
+    )
+
     return
 
 def sell_kidneys(*args):
@@ -111,7 +125,7 @@ def sell_kidneys(*args):
     # In case you don't have enough money to buy loot boxes you can always sell kidney.
 
     if total_kidneys.get() > 0:
-        total_money.set(total_money.get() + 30)
+        total_money.set(total_money.get() + random.randint(5, 40))
         total_kidneys.set(total_kidneys.get() - 1)
     return
 
@@ -145,24 +159,25 @@ card_ending = StringVar()
 final_item = StringVar()
 total_money.set(20)
 total_kidneys.set(2)
+loot_box_id.set(12345678987654321)
 
 # Set up text labels, buttons, and entry form.
 
-ttk.Label(mainframe, text='Welcome to RPG Loot Box Simulator!\nPlease enter credit card number to purchase loot box.').grid(column=2, row=1)
+ttk.Label(mainframe, text='Welcome to RPG Loot Box Simulator!\nPlease enter your credit card number to purchase loot box.').grid(column=2, row=1)
 
 loot_box_entry = ttk.Entry(mainframe, width=60, textvariable=loot_box_id)
 loot_box_entry.grid(column=2, row=2)
 
 ttk.Label(mainframe, text='Enter credit card number').grid(column=1, row=2, sticky=E)
-ttk.Label(mainframe, text='Total money').grid(column=1, row=4, sticky=E)
+ttk.Label(mainframe, text='Available fund').grid(column=1, row=4, sticky=E)
 ttk.Label(mainframe, textvariable=total_money).grid(column=1, row=5, sticky=E)
 ttk.Label(mainframe, text='Total kidneys').grid(column=1, row=6, sticky=E)
 ttk.Label(mainframe, textvariable=total_kidneys).grid(column=1, row=7, sticky=E)
 ttk.Label(mainframe, textvariable=profit).grid(column=2, row=4)
 ttk.Label(mainframe, text='github.com/khoangotran').grid(column=2, row=10)
 
-ttk.Button(mainframe, text='Buy loot box (-$10)', command=number_to_rpg_string).grid(column=2, row=5)
-ttk.Button(mainframe, text='Sell kidney (+$20)', command=sell_kidneys).grid(column=2, row=7)
+ttk.Button(mainframe, text='Buy loot box ($10)', command=number_to_rpg_string).grid(column=2, row=5)
+ttk.Button(mainframe, text='Sell kidney', command=sell_kidneys).grid(column=2, row=7)
 ttk.Button(mainframe, text='Random card', command=random_card).grid(column=3, row=2, sticky=W)
 ttk.Label(mainframe, textvariable=final_item).grid(column=2, row=8, sticky=(W, E))
 ttk.Label(mainframe, textvariable=card_ending).grid(column=2, row=9, sticky=(W, E))
@@ -176,7 +191,7 @@ root.mainloop()
 
 # REFERENCES
 # Mostly documents on how to append text from .txt to lists and GUI stuff.
-# Item prefixes come from World of Warcraft, and suffixes come from Path of Exile.
+# Item prefixes come from World of Warcraft. Suffixes come from Path of Exile.
 # ----------------------------------------------------------
 #https://pathofexile.gamepedia.com/Rare_Item_Name_Index
 #https://www.w3schools.com/python/python_dictionaries.asp
@@ -190,7 +205,7 @@ root.mainloop()
 #https://stackoverflow.com/questions/14786507/how-to-change-the-color-of-certain-words-in-the-tkinter-text-widget
 
 # REMARKS:  At first I wanted to just make an RPG item name generator.
-#           When it comes to naming the buttons I suddenly thought about loot boxes
+#           When I started to work on the GUI I suddenly thought about loot boxes
 #           so I decided to add the money system and made it so buying loot box costs
 #           money, but you can sell the item within the box to gain money back.
 #           I then added the sell_kidneys function as a way to gain money to debug.
