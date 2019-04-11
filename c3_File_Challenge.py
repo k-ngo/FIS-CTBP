@@ -45,12 +45,14 @@
 # Resulting list is thus
 # [['rp1', 'Mary Smith'], ['st7', 'John Doe'], ['uk9', 'Alex Johnson']]
 
-with open('.\c3_Data_List\c3_File_1.txt', 'r') as f:
+import os
+
+with open(os.path.join(os.path.dirname(__file__), 'c3_Data_List', 'c3_File_1.txt'), 'r') as f:
     list_1 = f.readlines()
     f.close()
 list_1 = [i.strip('\n').split(' ', 1) for i in list_1]
 
-with open('.\c3_Data_List\c3_File_2.txt', 'r') as f:
+with open(os.path.join(os.path.dirname(__file__), 'c3_Data_List', 'c3_File_2.txt'), 'r') as f:
     list_2 = f.readlines()
     f.close()
 list_2 = [i.strip('\n').split(' ', 1) for i in list_2]
