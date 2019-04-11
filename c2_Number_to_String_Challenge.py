@@ -102,7 +102,7 @@ def number_to_rpg_string(*args):
 
     total_money.set(total_money.get() + quality + 5)
     profit.set('You have profited $%d from selling the loot. Loot boxes are good!' %(quality + 5 - 10))
-    final_item.set('\nYou have obtained\n\n%s\n%s[%s] %s\n%s\n%s %s %s of %s %s\nValue: $%d\n%s' %('-' * 70, ' ' * 10, item_quality_dict[quality], '☆' * quality, '-' * 70, first_prefix, second_prefix, item_type_dict[item_type], first_suffix, second_suffix, quality + 5, '-' * 70))
+    final_item.set('\nYou have obtained\n\n%s\n%s[%s] %s\n%s\n%s %s %s of %s %s\nAttack: %d | Defense: %d | Value: $%d\n%s' %('-' * 70, ' ' * 10, item_quality_dict[quality], '☆' * quality, '-' * 70, first_prefix, second_prefix, item_type_dict[item_type], first_suffix, second_suffix, first_suffix_list.index(first_suffix) + item_type * quality, second_suffix_list.index(second_suffix) + item_type * quality, quality + 5, '-' * 70))
     card_ending.set('Your card ending in %s has been charged sucessfully.\nYou have gained $%d from selling the loot. Net profit is $%d.\nTo obtain a new item please use a different card.\nThank you for your purchase.\n' %(''.join(numbers[-4:]), quality + 5, quality + 5 - 10))
     return
 
