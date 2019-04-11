@@ -19,7 +19,7 @@ c1_Bucket_Challenge
 
 c2_Number_to_String_Challenge
 
-![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/Screenshots/c2_outputs.png)
+![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/Screenshots/c2_output.png)
 
 c3_File_Challenge
 
