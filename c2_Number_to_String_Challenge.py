@@ -101,6 +101,7 @@ def number_to_rpg_string(*args):
     # Money obtained from selling the loot is decided purely by the quality + 5.
 
     total_money.set(total_money.get() + quality + 5)
+    profit.set('You have profited $%d from selling the loot. Loot boxes are good!' %(quality + 5 - 10))
     final_item.set('\nYou have obtained\n\n%s\n%s[%s] %s\n%s\n%s %s %s of %s %s\nValue: $%d\n%s' %('-' * 70, ' ' * 10, item_quality_dict[quality], '☆' * quality, '-' * 70, first_prefix, second_prefix, item_type_dict[item_type], first_suffix, second_suffix, quality + 5, '-' * 70))
     card_ending.set('Your card ending in %s has been charged sucessfully.\nYou have gained $%d from selling the loot. Net profit is $%d.\nTo obtain a new item please use a different card.\nThank you for your purchase.\n' %(''.join(numbers[-4:]), quality + 5, quality + 5 - 10))
     return
@@ -129,7 +130,7 @@ def random_card(*args):
 root = Tk()
 root.title('RPG Loot Box Unboxing Simulator')
 
-mainframe = ttk.Frame(root, padding='30 20 30 20') # W N E S
+mainframe = ttk.Frame(root, padding='30 10 30 10') # W N E S
 mainframe.grid(column=0, row=0, sticky=(W, N, E, S))
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
@@ -137,6 +138,7 @@ root.rowconfigure(0, weight=1)
 # Initialize variables
 
 total_money = IntVar()
+profit = StringVar()
 total_kidneys = IntVar()
 loot_box_id = IntVar()
 card_ending = StringVar()
@@ -156,6 +158,7 @@ ttk.Label(mainframe, text='Total money').grid(column=1, row=4, sticky=E)
 ttk.Label(mainframe, textvariable=total_money).grid(column=1, row=5, sticky=E)
 ttk.Label(mainframe, text='Total kidneys').grid(column=1, row=6, sticky=E)
 ttk.Label(mainframe, textvariable=total_kidneys).grid(column=1, row=7, sticky=E)
+ttk.Label(mainframe, textvariable=profit).grid(column=2, row=4)
 ttk.Label(mainframe, text='github.com/khoangotran').grid(column=2, row=10)
 
 ttk.Button(mainframe, text='Buy loot box (-$10)', command=number_to_rpg_string).grid(column=2, row=5)
