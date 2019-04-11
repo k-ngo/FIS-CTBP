@@ -15,4 +15,4 @@ Sample output:
 
 c2_Number_to_String_Challenge
 
-![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/c2_output.png)
+![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/Screenshots/c2_output.png)
