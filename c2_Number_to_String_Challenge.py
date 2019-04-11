@@ -122,9 +122,8 @@ def random_card(*args):
     return
 
 
-# The code for the GUI is obtained from the official tutorial for the tkinter module.
+# To make the GUI, I referred to the official tutorial for the tkinter module.
 # https://tkdocs.com/tutorial/firstexample.html
-# The code has been extensively modified to suit my needs. Original code can be found on the link above.
 # I used this module to create GUI purely because it is built into Python so no additional download is needed.
 
 root = Tk()
