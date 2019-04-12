@@ -1,13 +1,7 @@
 # FIS CTBP Code Challenges
 Code challenges for the FIS program at CTBP, Rice U by Khoa Ngo.
 
-Language: Python 3. Tested on Mac OS and Windows.
-
-c1_Bucket_Challenge first completed on April 10, 2019 at 1:15 AM.
-
-c2_Number_to_String_Challenge first completed on April 10, 2019 at 5:17 PM.
-
-c3_File_Challenge first completed on April 10, 2019 at 6:26 PM.
+Language: Python 3.
 
 Documentations, comments, and references are included within the .py.
 
