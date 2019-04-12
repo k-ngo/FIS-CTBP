@@ -4,7 +4,7 @@
 
 from tkinter import *
 from tkinter import ttk
-import random
+import random # random will NOT be used to determine loot. Loot will determined by seed obtained from user input.
 import os
 
 # Open text files containing prefixes and suffixes, strip unneeded characters, then append them to lists.
@@ -57,9 +57,11 @@ item_quality_dict = {
     9: 'Exclusive Microtransaction'
 }
 
+used_loot_box_id_list = []
+
 def number_to_rpg_string(*args):
 
-    # Obtain input value.
+    # Obtain input value. 
 
     numbers = loot_box_entry.get()
 
@@ -76,7 +78,7 @@ def number_to_rpg_string(*args):
     # Divide the provided card number into segments to serve as seeds. The seeds will later determine the loot.
     # If there are not enough numbers in the list to divide into meaningful segments,
     # the trailing number will be continuously appended to the list until len is >= 10.
-    # No random functions were used to ensure the same credit card will give the same loot.
+    # No random functions were used here to ensure the same credit card will give the same loot.
 
     num_list = list(str(numbers))
     while len(num_list) < 10:
@@ -100,23 +102,37 @@ def number_to_rpg_string(*args):
     second_suffix = second_suffix_list[second_suffix % len(second_suffix_list)]
 
     # Output everything we have as well as add money obtained from selling the loot to total_money.
-    # Money obtained from selling the loot is decided purely by quality + 5.
+    # Money obtained from selling the loot is decided purely by loot_value = quality + 5.
+    # If card number (i.e. loot_box_entry) is already used before, loot_value = 10 (same as cost so no profit).
+    # Also set text notifications to be displayed.
 
-    total_money.set(total_money.get() + quality + 5)
-    profit.set('You have profited $%d from selling the loot. Loot boxes are good!' %(quality + 5 - 10))
+    if loot_box_entry.get() in used_loot_box_id_list:
+        loot_value = 10
+        profit.set('To obtain a new item please use a different card.')
+    else:
+        used_loot_box_id_list.append(loot_box_entry.get())
+        loot_value = quality + 5
+        if loot_value > 10:
+            profit.set('You received $%d back from selling the loot. Loot boxes are good!' %(loot_value - 10))
+        else:
+            profit.set('You received -$%d back from selling the loot. Try again next time!' %(10 - loot_value))
+
+    total_money.set(total_money.get() + loot_value)
+
+    # Set even more text to be displayed.
 
     final_item.set(
         '\nCongratulations! You have obtained\n\n' + '-' * 70 + '\n' + '[' + item_quality_dict[quality] + ']' + ' ☆' * quality + '\n' + '-' * 70 + '\n' +
         first_prefix + ' ' + second_prefix + ' ' + item_type_dict[item_type] + ' of ' + first_suffix + ' ' + second_suffix + '\n' +
         'Attack: ' + str(first_suffix_list.index(first_suffix) + item_type * quality) + ' ' +
         '| Defense: ' + str(second_suffix_list.index(second_suffix) + item_type * quality) + ' ' +
-        '| Value: $' + str(quality + 5) + '\n' + '-' * 70
+        '| Value: $' + str(loot_value) + '\n' + '-' * 70
     )
     
     card_ending.set(
         'Your card ending in ' + ''.join(numbers[-4:]) + ' has been charged sucessfully.\n' +
-        'You have gained $' + str(quality + 5) + ' from selling the loot.\n' +
-        'To obtain a new item please use a different card.\nThank you for your purchase.\n'
+        'You gained $' + str(loot_value) + ' from selling the loot. You profited $' + str(loot_value - 10) + '.\n' +
+        'Thank you for your purchase.\n'
     )
 
     return
@@ -126,8 +142,13 @@ def sell_kidneys(*args):
     # In case you don't have enough money to buy loot boxes you can always sell kidney.
 
     if total_kidneys.get() > 0:
-        total_money.set(total_money.get() + random.randint(5, 40))
+        kidney_value = random.randint(5, 40)
+        total_money.set(total_money.get() + kidney_value)
+        kidney_sold.set('Kidney sold on the black market for $' + str(kidney_value) + '.')
         total_kidneys.set(total_kidneys.get() - 1)
+    else:
+        kidney_sold.set('You have no more kidneys to sell.')
+
     return
 
 def random_card(*args):
@@ -158,23 +179,27 @@ total_kidneys = IntVar()
 loot_box_id = IntVar()
 card_ending = StringVar()
 final_item = StringVar()
+kidney_sold = StringVar()
 total_money.set(20)
 total_kidneys.set(2)
 loot_box_id.set(12345678987654321)
 
 # Set up text labels, buttons, and entry form.
 
-ttk.Label(mainframe, text='Welcome to RPG Loot Box Simulator!\nPlease enter your credit card number to purchase loot box.').grid(column=2, row=1)
+ttk.Label(mainframe, text='Welcome to RPG Loot Box Simulator!\n' +
+                          'Please enter your credit card number below to purchase loot box.\n' +
+                          'Looted items can be sold to buy more boxes.').grid(column=2, row=1)
 
 loot_box_entry = ttk.Entry(mainframe, width=60, textvariable=loot_box_id)
 loot_box_entry.grid(column=2, row=2)
 
 ttk.Label(mainframe, text='Enter credit card number').grid(column=1, row=2, sticky=E)
-ttk.Label(mainframe, text='Available fund').grid(column=1, row=4, sticky=E)
-ttk.Label(mainframe, textvariable=total_money).grid(column=1, row=5, sticky=E)
-ttk.Label(mainframe, text='Total kidneys').grid(column=1, row=6, sticky=E)
-ttk.Label(mainframe, textvariable=total_kidneys).grid(column=1, row=7, sticky=E)
+ttk.Label(mainframe, text='Available fund').grid(column=1, row=4)
+ttk.Label(mainframe, text='$'+str(total_money.get())).grid(column=1, row=5)
+ttk.Label(mainframe, text='Total kidneys').grid(column=1, row=6)
+ttk.Label(mainframe, textvariable=total_kidneys).grid(column=1, row=7)
 ttk.Label(mainframe, textvariable=profit).grid(column=2, row=4)
+ttk.Label(mainframe, textvariable=kidney_sold).grid(column=2, row=6)
 ttk.Label(mainframe, text='github.com/khoangotran').grid(column=2, row=10)
 
 ttk.Button(mainframe, text='Buy loot box ($10)', command=number_to_rpg_string).grid(column=2, row=5)
