@@ -195,7 +195,7 @@ loot_box_entry.grid(column=2, row=2)
 
 ttk.Label(mainframe, text='Enter credit card number').grid(column=1, row=2, sticky=E)
 ttk.Label(mainframe, text='Available fund').grid(column=1, row=4)
-ttk.Label(mainframe, text='$'+str(total_money.get())).grid(column=1, row=5)
+ttk.Label(mainframe, textvariable=total_money).grid(column=1, row=5)
 ttk.Label(mainframe, text='Total kidneys').grid(column=1, row=6)
 ttk.Label(mainframe, textvariable=total_kidneys).grid(column=1, row=7)
 ttk.Label(mainframe, textvariable=profit).grid(column=2, row=4)
