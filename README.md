@@ -13,11 +13,12 @@ c1_Bucket_Challenge
 
 ![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/Screenshots/c1_outputs.png)
 
-
 c2_Number_to_String_Challenge
 
-![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/Screenshots/c2_outputs.png)
+![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/Screenshots/c2_output_new.png)
 
+c2_Number_to_String_Challenge older version:
+![alt text](https://github.com/khoangotran/FIS-CTBP/blob/master/Screenshots/c2_outputs.png)
 
 c3_File_Challenge
 
