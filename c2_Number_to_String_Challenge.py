@@ -11,22 +11,18 @@ import os
 
 with open(os.path.join(os.path.dirname(__file__), 'c2_Names_List', 'c2_First_Prefixes.txt'), 'r') as f:
     first_prefix_list = f.readline().split(",")
-    f.close()
 first_prefix_list = [i.strip('\n') for i in first_prefix_list]
 
 with open(os.path.join(os.path.dirname(__file__), 'c2_Names_List', 'c2_Second_Prefixes.txt'), 'r') as f:
     second_prefix_list = f.readlines()
-    f.close()
 second_prefix_list = [i.strip('\n') for i in second_prefix_list]
 
 with open(os.path.join(os.path.dirname(__file__), 'c2_Names_List', 'c2_First_Suffixes.txt'), 'r') as f:
     first_suffix_list = f.readline().split(",")
-    f.close()
 first_suffix_list = [i.strip('\n') for i in first_suffix_list]
 
 with open(os.path.join(os.path.dirname(__file__), 'c2_Names_List', 'c2_Second_Suffixes.txt'), 'r') as f:
     second_suffix_list = f.readline().split(",")
-    f.close()
 second_suffix_list = [i.strip('\n') for i in second_suffix_list]
 
 # I made the decision to use dict instead of list here for ease of access/edit.
@@ -200,7 +196,7 @@ ttk.Label(mainframe, text='Total kidneys').grid(column=1, row=6)
 ttk.Label(mainframe, textvariable=total_kidneys).grid(column=1, row=7)
 ttk.Label(mainframe, textvariable=profit).grid(column=2, row=4)
 ttk.Label(mainframe, textvariable=kidney_sold).grid(column=2, row=6)
-ttk.Label(mainframe, text='github.com/khoangotran').grid(column=2, row=10)
+ttk.Label(mainframe, text='').grid(column=2, row=10)
 
 ttk.Button(mainframe, text='Buy loot box ($10)', command=number_to_rpg_string).grid(column=2, row=5)
 ttk.Button(mainframe, text='Sell kidney', command=sell_kidneys).grid(column=2, row=7)

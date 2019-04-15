@@ -49,12 +49,10 @@ import os
 
 with open(os.path.join(os.path.dirname(__file__), 'c3_Data_List', 'c3_File_1.txt'), 'r') as f:
     list_1 = f.readlines()
-    f.close()
 list_1 = [i.strip('\n').split(' ', 1) for i in list_1]
 
 with open(os.path.join(os.path.dirname(__file__), 'c3_Data_List', 'c3_File_2.txt'), 'r') as f:
     list_2 = f.readlines()
-    f.close()
 list_2 = [i.strip('\n').split(' ', 1) for i in list_2]
 
 # Check to make sure lists are appended correctly
