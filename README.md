@@ -1,11 +1,9 @@
 # FIS CTBP Code Challenges
-Code challenges for the FIS program at CTBP, Rice U by Khoa Ngo.
+Coding exercises for CTBP, Rice U.
 
 Language: Python 3.
 
 Documentations, comments, and references are included within the .py.
-
-Contact: khoangotran@gmail.com
 
 Sample outputs:
 
